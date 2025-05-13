@@ -7,6 +7,27 @@ import {
   CarouselNext,
 } from "./ui/carousel";
 
+const projectImages = [
+  {
+    src: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3",
+    alt: "Tech project featuring a laptop computer",
+    title: "Digital Platform Design",
+    category: "Web Development"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3",
+    alt: "Woman using a laptop computer",
+    title: "E-Commerce Solution",
+    category: "UX/UI Design"
+  },
+  {
+    src: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?ixlib=rb-4.0.3",
+    alt: "Modern laptop display",
+    title: "SaaS Dashboard",
+    category: "Product Design"
+  }
+];
+
 const SelectedWork = () => {
   return (
     <div className="bg-gray-100 py-16 px-6 md:px-12 lg:px-24">
@@ -33,18 +54,28 @@ const SelectedWork = () => {
         }}
       >
         <CarouselContent>
-          {[...Array(3)].map((_, i) => (
+          {projectImages.map((project, i) => (
             <CarouselItem key={i} className="md:basis-1/2 lg:basis-1/3 pl-4">
-              <div className="border border-gray-200 rounded-lg overflow-hidden bg-white h-72">
-                <img 
-                  src="/placeholder.svg" 
-                  alt={`Project ${i+1}`} 
-                  className="w-full h-full object-cover"
-                />
+              <div className="border border-gray-200 rounded-lg overflow-hidden bg-white h-auto">
+                <div className="relative h-64">
+                  <img 
+                    src={project.src} 
+                    alt={project.alt} 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-medium">{project.title}</h3>
+                  <p className="text-sm text-gray-500">{project.category}</p>
+                </div>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
+        <div className="flex justify-center mt-6 md:hidden">
+          <CarouselPrevious className="relative mr-4" />
+          <CarouselNext className="relative" />
+        </div>
       </Carousel>
     </div>
   );
