@@ -1,6 +1,6 @@
 
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Menu } from "lucide-react";
 import { useIsMobile } from "../hooks/use-mobile";
@@ -13,6 +13,10 @@ import {
 const Navbar = () => {
   const isMobile = useIsMobile();
   const [isOpen, setIsOpen] = useState(false);
+  const location = useLocation();
+
+  // Helper function to determine active state
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <nav className="flex items-center justify-between py-4 px-6 md:px-12 lg:px-24 bg-white">
@@ -33,35 +37,35 @@ const Navbar = () => {
             <div className="flex flex-col space-y-6 mt-10">
               <Link 
                 to="/showcase" 
-                className="text-lg font-medium"
+                className={`text-lg font-medium ${isActive('/showcase') ? 'text-primary' : ''}`}
                 onClick={() => setIsOpen(false)}
               >
                 Showcase
               </Link>
               <Link 
                 to="/talents" 
-                className="text-lg font-medium"
+                className={`text-lg font-medium ${isActive('/talents') ? 'text-primary' : ''}`}
                 onClick={() => setIsOpen(false)}
               >
                 Talents
               </Link>
               <Link 
                 to="/scope" 
-                className="text-lg font-medium"
+                className={`text-lg font-medium ${isActive('/scope') ? 'text-primary' : ''}`}
                 onClick={() => setIsOpen(false)}
               >
                 Scope
               </Link>
               <Link 
                 to="/pricing" 
-                className="text-lg font-medium"
+                className={`text-lg font-medium ${isActive('/pricing') ? 'text-primary' : ''}`}
                 onClick={() => setIsOpen(false)}
               >
                 Pricing
               </Link>
               <Link 
                 to="/apply" 
-                className="text-lg font-medium"
+                className={`text-lg font-medium ${isActive('/apply') ? 'text-primary' : ''}`}
                 onClick={() => setIsOpen(false)}
               >
                 Apply as a Talent
@@ -75,22 +79,22 @@ const Navbar = () => {
       ) : (
         <>
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/showcase" className="text-gray-700 hover:text-gray-900">
+            <Link to="/showcase" className={`${isActive('/showcase') ? 'text-primary font-medium' : 'text-gray-700 hover:text-gray-900'}`}>
               Showcase
             </Link>
-            <Link to="/talents" className="text-gray-700 hover:text-gray-900">
+            <Link to="/talents" className={`${isActive('/talents') ? 'text-primary font-medium' : 'text-gray-700 hover:text-gray-900'}`}>
               Talents
             </Link>
-            <Link to="/scope" className="text-gray-700 hover:text-gray-900">
+            <Link to="/scope" className={`${isActive('/scope') ? 'text-primary font-medium' : 'text-gray-700 hover:text-gray-900'}`}>
               Scope
             </Link>
-            <Link to="/pricing" className="text-gray-700 hover:text-gray-900">
+            <Link to="/pricing" className={`${isActive('/pricing') ? 'text-primary font-medium' : 'text-gray-700 hover:text-gray-900'}`}>
               Pricing
             </Link>
           </div>
 
           <div className="flex items-center space-x-4">
-            <Link to="/apply" className="hidden md:block text-gray-700 hover:text-gray-900">
+            <Link to="/apply" className={`hidden md:block ${isActive('/apply') ? 'text-primary font-medium' : 'text-gray-700 hover:text-gray-900'}`}>
               Apply as a Talent
             </Link>
             <Button className="bg-black text-white hover:bg-black/90">
