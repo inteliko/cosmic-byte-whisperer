@@ -48,7 +48,7 @@ export const ScopePageSidebar = ({
       collapsible="icon"
     >
       <SidebarContent>
-        <SidebarGroup defaultOpen>
+        <SidebarGroup>
           <SidebarGroupLabel>Search</SidebarGroupLabel>
           <SidebarGroupContent className="px-1">
             {open && (
@@ -65,7 +65,7 @@ export const ScopePageSidebar = ({
           </SidebarGroupContent>
         </SidebarGroup>
 
-        <SidebarGroup defaultOpen>
+        <SidebarGroup>
           <SidebarGroupLabel>Categories</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>

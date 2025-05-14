@@ -172,11 +172,11 @@ const Scope = () => {
       
       <main className="flex-grow">
         {/* Hero Section */}
-        <div className="bg-blue-500 text-white py-24 px-6 text-center">
+        <div className="bg-blue-500 text-white py-16 px-6 text-center">
           <div className="mx-auto max-w-3xl mb-4">
             <img src="/placeholder.svg" alt="Candy Icon" className="inline-block h-16 w-16 mb-4" />
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">
             Welcome to The Candy Store of Design & Dev Work
           </h1>
           <p className="text-xl max-w-3xl mx-auto">
@@ -186,13 +186,15 @@ const Scope = () => {
 
         <SidebarProvider>
           <div className="flex min-h-[calc(100vh-24rem)] w-full">
-            <ScopePageSidebar 
-              categories={taskCategories}
-              activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
+            <div className="sticky top-0 h-screen">
+              <ScopePageSidebar 
+                categories={taskCategories}
+                activeCategory={activeCategory}
+                setActiveCategory={setActiveCategory}
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+              />
+            </div>
             
             <SidebarInset className="pb-12">
               <div className="p-8">
@@ -280,6 +282,18 @@ const Scope = () => {
                       </button>
                     </div>
                   )}
+                </div>
+                
+                {/* Project Categories Section */}
+                <div className="mt-12">
+                  <h3 className="text-2xl font-bold mb-6">Project Categories</h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    {projectCategories.map(category => (
+                      <Card key={category} className="p-4 hover:shadow-md transition-shadow cursor-pointer">
+                        <h4 className="font-medium">{category}</h4>
+                      </Card>
+                    ))}
+                  </div>
                 </div>
                 
                 {/* Help Section */}
