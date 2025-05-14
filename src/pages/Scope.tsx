@@ -1,13 +1,15 @@
+
 import { useState } from "react";
+import { Search } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Card, CardContent } from "@/components/ui/card";
-import { Search } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
+import { ScopePageSidebar } from "@/components/ScopePageSidebar";
+import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 
 const Scope = () => {
   const [activeCategory, setActiveCategory] = useState<string>("UX Design");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   // Task Categories Data
   const taskCategories = [
@@ -142,6 +144,28 @@ const Scope = () => {
     ]
   };
 
+  // Filter services based on search query
+  const filteredServices = Object.entries(services).reduce((acc, [category, categoryServices]) => {
+    if (searchQuery) {
+      const filtered = categoryServices.filter(
+        service => 
+          service.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+          service.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          service.platforms.some(platform => platform.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+      
+      if (filtered.length > 0) {
+        acc[category] = filtered;
+      }
+    } else {
+      acc[category] = categoryServices;
+    }
+    return acc;
+  }, {} as Record<string, typeof services[keyof typeof services]>);
+
+  // Get services to display based on active category and search query
+  const displayServices = searchQuery ? filteredServices : { [activeCategory]: services[activeCategory as keyof typeof services] };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -160,96 +184,115 @@ const Scope = () => {
           </p>
         </div>
 
-        <div className="container mx-auto px-4 py-12">
-          {/* Show all layouts together in a single view */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold mb-6">All Categories</h2>
+        <SidebarProvider>
+          <div className="flex min-h-[calc(100vh-24rem)] w-full">
+            <ScopePageSidebar 
+              categories={taskCategories}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
             
-            {/* Task Categories Section */}
-            <div className="mb-12">
-              <h3 className="text-2xl font-bold mb-4">Task Categories</h3>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {taskCategories.map(category => (
-                  <div 
-                    key={category}
-                    onClick={() => setActiveCategory(category)}
-                    className={`p-3 border rounded-md cursor-pointer transition-colors ${
-                      activeCategory === category ? 'bg-blue-500 text-white' : 'hover:bg-gray-50'
-                    }`}
-                  >
-                    {category}
+            <SidebarInset className="pb-12">
+              <div className="p-8">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-3xl font-bold">
+                    {searchQuery ? "Search Results" : activeCategory}
+                  </h2>
+                  <SidebarTrigger />
+                </div>
+
+                {/* Mobile Search Bar */}
+                <div className="mb-6 lg:hidden">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-3 text-gray-400" size={20} />
+                    <input 
+                      type="text" 
+                      placeholder="Search services..." 
+                      className="w-full pl-10 pr-3 py-3 border rounded-md"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                    />
                   </div>
-                ))}
-              </div>
-            </div>
-            
-            {/* Project Categories Section */}
-            <div className="mb-12">
-              <h3 className="text-2xl font-bold mb-4">Project Categories</h3>
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {projectCategories.map(category => (
-                  <div 
-                    key={category}
-                    className="p-3 border rounded-md cursor-pointer hover:bg-gray-50 transition-colors"
-                  >
-                    {category}
+                </div>
+
+                {/* Task Categories Section (Mobile Only) */}
+                <div className="mb-8 lg:hidden">
+                  <h3 className="text-xl font-bold mb-4">Categories</h3>
+                  <div className="grid grid-cols-2 gap-2">
+                    {taskCategories.map(category => (
+                      <div 
+                        key={category}
+                        onClick={() => {
+                          setActiveCategory(category);
+                          setSearchQuery("");
+                        }}
+                        className={`p-3 border rounded-md cursor-pointer transition-colors ${
+                          activeCategory === category ? 'bg-blue-500 text-white' : 'hover:bg-gray-50'
+                        }`}
+                      >
+                        {category}
+                      </div>
+                    ))}
                   </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          {/* Search Bar */}
-          <div className="mb-8">
-            <h3 className="text-xl font-bold mb-2">Search Our Services</h3>
-            <div className="relative">
-              <Search className="absolute left-3 top-3 text-gray-400" size={20} />
-              <input 
-                type="text" 
-                placeholder="Type your keyword then hit enter" 
-                className="w-full pl-10 pr-3 py-3 border rounded-md"
-              />
-            </div>
-          </div>
-          
-          {/* All Categories Content */}
-          <div className="space-y-16">
-            {/* Show all categories and their services */}
-            {Object.entries(services).map(([category, categoryServices]) => (
-              <div key={category} className="mb-12">
-                <h2 className="text-3xl font-bold mb-6">{category}</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {categoryServices.map((service, index) => (
-                    <div key={index} className="border p-6 rounded-lg shadow-sm">
-                      <div className="text-sm text-gray-500 mb-2">{service.turnaround}</div>
-                      <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                      <p className="text-gray-600 mb-4">{service.description}</p>
-                      
-                      <div className="mb-4">
-                        <div className="text-sm font-medium mb-2">Platform</div>
-                        <div className="flex flex-wrap gap-2">
-                          {service.platforms.map(platform => (
-                            <div key={platform} className="px-2 py-1 bg-gray-100 rounded text-sm">
-                              {platform}
+                </div>
+
+                {/* Services Grid */}
+                <div className="space-y-10">
+                  {Object.entries(displayServices).map(([category, categoryServices]) => (
+                    <div key={category} className="mb-8">
+                      {searchQuery && <h3 className="text-xl font-semibold mb-4">{category}</h3>}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {categoryServices?.map((service, index) => (
+                          <Card key={`${category}-${index}`} className="overflow-hidden border hover:shadow-md transition-shadow">
+                            <div className="p-6">
+                              <div className="text-sm text-gray-500 mb-2">{service.turnaround}</div>
+                              <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                              <p className="text-gray-600 mb-4">{service.description}</p>
+                              
+                              <div className="mb-4">
+                                <div className="text-sm font-medium mb-2">Platform</div>
+                                <div className="flex flex-wrap gap-2">
+                                  {service.platforms.map(platform => (
+                                    <div key={platform} className="px-2 py-1 bg-gray-100 rounded text-sm">
+                                      {platform}
+                                    </div>
+                                  ))}
+                                </div>
+                              </div>
                             </div>
-                          ))}
-                        </div>
+                          </Card>
+                        ))}
                       </div>
                     </div>
                   ))}
+
+                  {/* Display message when no services match search */}
+                  {searchQuery && Object.keys(displayServices).length === 0 && (
+                    <div className="py-10 text-center">
+                      <p className="text-lg text-gray-500">No services found matching "{searchQuery}"</p>
+                      <button 
+                        className="mt-3 text-blue-500 hover:underline"
+                        onClick={() => setSearchQuery("")}
+                      >
+                        Clear search
+                      </button>
+                    </div>
+                  )}
+                </div>
+                
+                {/* Help Section */}
+                <div className="mt-12 p-6 border rounded-md max-w-md mx-auto">
+                  <h3 className="font-medium text-xl mb-4 text-center">Need Help?</h3>
+                  <button className="w-full bg-black text-white py-3 rounded hover:bg-black/90">
+                    Chat With Us
+                  </button>
                 </div>
               </div>
-            ))}
+            </SidebarInset>
           </div>
-          
-          {/* Help Section */}
-          <div className="mt-12 p-6 border rounded-md max-w-md mx-auto">
-            <h3 className="font-medium text-xl mb-4 text-center">Need Help?</h3>
-            <button className="w-full bg-black text-white py-3 rounded hover:bg-black/90">
-              Chat With Us
-            </button>
-          </div>
-        </div>
+        </SidebarProvider>
       </main>
       
       <Footer />
