@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -9,10 +8,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Scope = () => {
   const [activeCategory, setActiveCategory] = useState<string>("UX Design");
-  const [expandedCategories, setExpandedCategories] = useState({
-    taskCategories: true,
-    projectCategories: false,
-  });
 
   // Task Categories Data
   const taskCategories = [
@@ -147,15 +142,6 @@ const Scope = () => {
     ]
   };
 
-  const toggleCategory = (category: "taskCategories" | "projectCategories") => {
-    setExpandedCategories({
-      ...expandedCategories,
-      [category]: !expandedCategories[category]
-    });
-  };
-
-  const currentServices = services[activeCategory as keyof typeof services] || [];
-
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -175,111 +161,93 @@ const Scope = () => {
         </div>
 
         <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            {/* Sidebar with Categories */}
-            <div className="space-y-6">
-              {/* Task Categories */}
-              <div>
-                <div 
-                  className="flex items-center justify-between cursor-pointer mb-4"
-                  onClick={() => toggleCategory("taskCategories")}
-                >
-                  <h3 className="text-lg font-bold uppercase">Task Categories</h3>
-                  <div className="text-lg">
-                    {expandedCategories.taskCategories ? '−' : '+'}
-                  </div>
-                </div>
-                
-                {expandedCategories.taskCategories && (
-                  <div className="space-y-2">
-                    {taskCategories.map(category => (
-                      <div 
-                        key={category}
-                        onClick={() => setActiveCategory(category)}
-                        className={`p-3 cursor-pointer transition-colors ${activeCategory === category ? 'bg-gray-100 font-medium' : 'hover:bg-gray-50'}`}
-                      >
-                        {category}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              
-              {/* Project Categories */}
-              <div>
-                <div 
-                  className="flex items-center justify-between cursor-pointer mb-4"
-                  onClick={() => toggleCategory("projectCategories")}
-                >
-                  <h3 className="text-lg font-bold uppercase">Project Categories</h3>
-                  <div className="text-lg">
-                    {expandedCategories.projectCategories ? '−' : '+'}
-                  </div>
-                </div>
-                
-                {expandedCategories.projectCategories && (
-                  <div className="space-y-2">
-                    {projectCategories.map(category => (
-                      <div 
-                        key={category}
-                        className="p-3 cursor-pointer hover:bg-gray-50 transition-colors"
-                      >
-                        {category}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-              
-              {/* Help Section */}
-              <div className="mt-12 p-6 border rounded-md">
-                <h3 className="font-medium mb-4">Need Help?</h3>
-                <button className="w-full bg-black text-white py-3 rounded hover:bg-black/90">
-                  Chat With Us
-                </button>
-              </div>
-            </div>
+          {/* Show all layouts together in a single view */}
+          <div className="mb-12">
+            <h2 className="text-3xl font-bold mb-6">All Categories</h2>
             
-            {/* Main Content */}
-            <div className="lg:col-span-3">
-              {/* Search Bar */}
-              <div className="mb-8">
-                <h3 className="text-lg mb-2">Search Our Services</h3>
-                <div className="relative">
-                  <Search className="absolute left-3 top-3 text-gray-400" size={20} />
-                  <input 
-                    type="text" 
-                    placeholder="Type your keyword then hit enter" 
-                    className="w-full pl-10 pr-3 py-3 border rounded-md"
-                  />
-                </div>
-              </div>
-              
-              {/* Active Category Title */}
-              <h2 className="text-3xl font-bold mb-8">{activeCategory}</h2>
-              
-              {/* Services Grid */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {currentServices.map((service, index) => (
-                  <div key={index} className="mb-8">
-                    <div className="text-sm text-gray-500 mb-2">{service.turnaround}</div>
-                    <h3 className="text-xl font-bold mb-3">{service.title}</h3>
-                    <p className="text-gray-600 mb-4">{service.description}</p>
-                    
-                    <div className="mb-4">
-                      <div className="text-sm font-medium mb-2">Platform</div>
-                      <div className="flex flex-wrap gap-2">
-                        {service.platforms.map(platform => (
-                          <div key={platform} className="px-2 py-1 bg-gray-100 rounded text-sm">
-                            {platform}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+            {/* Task Categories Section */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold mb-4">Task Categories</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                {taskCategories.map(category => (
+                  <div 
+                    key={category}
+                    onClick={() => setActiveCategory(category)}
+                    className={`p-3 border rounded-md cursor-pointer transition-colors ${
+                      activeCategory === category ? 'bg-blue-500 text-white' : 'hover:bg-gray-50'
+                    }`}
+                  >
+                    {category}
                   </div>
                 ))}
               </div>
             </div>
+            
+            {/* Project Categories Section */}
+            <div className="mb-12">
+              <h3 className="text-2xl font-bold mb-4">Project Categories</h3>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                {projectCategories.map(category => (
+                  <div 
+                    key={category}
+                    className="p-3 border rounded-md cursor-pointer hover:bg-gray-50 transition-colors"
+                  >
+                    {category}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          
+          {/* Search Bar */}
+          <div className="mb-8">
+            <h3 className="text-xl font-bold mb-2">Search Our Services</h3>
+            <div className="relative">
+              <Search className="absolute left-3 top-3 text-gray-400" size={20} />
+              <input 
+                type="text" 
+                placeholder="Type your keyword then hit enter" 
+                className="w-full pl-10 pr-3 py-3 border rounded-md"
+              />
+            </div>
+          </div>
+          
+          {/* All Categories Content */}
+          <div className="space-y-16">
+            {/* Show all categories and their services */}
+            {Object.entries(services).map(([category, categoryServices]) => (
+              <div key={category} className="mb-12">
+                <h2 className="text-3xl font-bold mb-6">{category}</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {categoryServices.map((service, index) => (
+                    <div key={index} className="border p-6 rounded-lg shadow-sm">
+                      <div className="text-sm text-gray-500 mb-2">{service.turnaround}</div>
+                      <h3 className="text-xl font-bold mb-3">{service.title}</h3>
+                      <p className="text-gray-600 mb-4">{service.description}</p>
+                      
+                      <div className="mb-4">
+                        <div className="text-sm font-medium mb-2">Platform</div>
+                        <div className="flex flex-wrap gap-2">
+                          {service.platforms.map(platform => (
+                            <div key={platform} className="px-2 py-1 bg-gray-100 rounded text-sm">
+                              {platform}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Help Section */}
+          <div className="mt-12 p-6 border rounded-md max-w-md mx-auto">
+            <h3 className="font-medium text-xl mb-4 text-center">Need Help?</h3>
+            <button className="w-full bg-black text-white py-3 rounded hover:bg-black/90">
+              Chat With Us
+            </button>
           </div>
         </div>
       </main>
