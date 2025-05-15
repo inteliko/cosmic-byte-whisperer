@@ -12,14 +12,13 @@ import WhatYouGet from "../components/WhatYouGet";
 import SelectedWork from "../components/SelectedWork";
 import CallToAction from "../components/CallToAction";
 import Footer from "../components/Footer";
-import { Button } from "../components/ui/button";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
       
-      <div className="bg-white">
+      <div className="bg-white pt-24">
         <Hero />
         <TeamCarousel />
         <TrustedBy />
