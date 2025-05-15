@@ -6,12 +6,12 @@ const Hero = () => {
   return (
     <div className="text-center py-16 md:py-24 px-6 md:px-12 lg:px-24">
       <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-        Hire Your Whole Design &<br />
-        Dev Team With a Few Clicks
+        The Quickest Way To Onboard<br />
+        Talent To Your Team
       </h1>
       <p className="text-gray-600 max-w-3xl mx-auto mb-8">
-        Get on-demand access to your own team of designers, developers &
-        project managers without the hassle of managing full-time employees.
+        Growmodo is a design & development subscription that
+        takes the pain out of hiring creatives for your business.
       </p>
       
       <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4 mb-16">
