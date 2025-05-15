@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Search } from "lucide-react";
 import Navbar from "../components/Navbar";
@@ -186,15 +185,13 @@ const Scope = () => {
 
         <SidebarProvider>
           <div className="flex min-h-[calc(100vh-24rem)] w-full">
-            <div className="sticky top-0 h-screen">
-              <ScopePageSidebar 
-                categories={taskCategories}
-                activeCategory={activeCategory}
-                setActiveCategory={setActiveCategory}
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-              />
-            </div>
+            <ScopePageSidebar 
+              categories={taskCategories}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
             
             <SidebarInset className="pb-12">
               <div className="p-8">
