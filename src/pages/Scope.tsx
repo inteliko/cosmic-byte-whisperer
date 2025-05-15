@@ -1,10 +1,9 @@
+
 import { useState } from "react";
 import { Search } from "lucide-react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { Card } from "@/components/ui/card";
-import { ScopePageSidebar } from "@/components/ScopePageSidebar";
-import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 
 const Scope = () => {
   const [activeCategory, setActiveCategory] = useState<string>("UX Design");
@@ -183,59 +182,56 @@ const Scope = () => {
           </p>
         </div>
 
-        <SidebarProvider>
-          <div className="flex min-h-[calc(100vh-24rem)] w-full">
-            <ScopePageSidebar 
-              categories={taskCategories}
-              activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-            />
-            
-            <SidebarInset className="pb-12">
-              <div className="p-8">
-                <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-3xl font-bold">
-                    {searchQuery ? "Search Results" : activeCategory}
-                  </h2>
-                  <SidebarTrigger />
+        <div className="container mx-auto p-4">
+          <div className="flex flex-col md:flex-row gap-6">
+            {/* Sidebar / Categories Section */}
+            <div className="w-full md:w-64 shrink-0">
+              {/* Search */}
+              <div className="mb-6">
+                <h3 className="text-lg font-medium mb-3">Search</h3>
+                <div className="relative">
+                  <Search className="absolute left-3 top-2.5 text-gray-400" size={16} />
+                  <input
+                    type="text"
+                    placeholder="Search services..."
+                    className="w-full pl-9 pr-3 py-2 border rounded-md text-sm"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                  />
                 </div>
+              </div>
 
-                {/* Mobile Search Bar */}
-                <div className="mb-6 lg:hidden">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-3 text-gray-400" size={20} />
-                    <input 
-                      type="text" 
-                      placeholder="Search services..." 
-                      className="w-full pl-10 pr-3 py-3 border rounded-md"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                    />
-                  </div>
+              {/* Categories */}
+              <div>
+                <h3 className="text-lg font-medium mb-3">Categories</h3>
+                <div className="space-y-2">
+                  {taskCategories.map((category) => (
+                    <div
+                      key={category}
+                      className={`flex items-center cursor-pointer py-1.5 ${
+                        category === activeCategory ? "font-medium" : ""
+                      }`}
+                      onClick={() => {
+                        setActiveCategory(category);
+                        setSearchQuery("");
+                      }}
+                    >
+                      <div className={`w-3 h-3 rounded-full ${
+                        category === activeCategory ? "bg-blue-500" : "bg-gray-300"
+                      } mr-2`} />
+                      <span>{category}</span>
+                    </div>
+                  ))}
                 </div>
+              </div>
+            </div>
 
-                {/* Task Categories Section (Mobile Only) */}
-                <div className="mb-8 lg:hidden">
-                  <h3 className="text-xl font-bold mb-4">Categories</h3>
-                  <div className="grid grid-cols-2 gap-2">
-                    {taskCategories.map(category => (
-                      <div 
-                        key={category}
-                        onClick={() => {
-                          setActiveCategory(category);
-                          setSearchQuery("");
-                        }}
-                        className={`p-3 border rounded-md cursor-pointer transition-colors ${
-                          activeCategory === category ? 'bg-blue-500 text-white' : 'hover:bg-gray-50'
-                        }`}
-                      >
-                        {category}
-                      </div>
-                    ))}
-                  </div>
-                </div>
+            {/* Main Content */}
+            <div className="flex-grow pb-12">
+              <div>
+                <h2 className="text-3xl font-bold mb-8">
+                  {searchQuery ? "Search Results" : activeCategory}
+                </h2>
 
                 {/* Services Grid */}
                 <div className="space-y-10">
@@ -301,9 +297,9 @@ const Scope = () => {
                   </button>
                 </div>
               </div>
-            </SidebarInset>
+            </div>
           </div>
-        </SidebarProvider>
+        </div>
       </main>
       
       <Footer />
