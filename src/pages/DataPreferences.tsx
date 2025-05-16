@@ -1,7 +1,7 @@
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { DataPreferences as DataPrefIcon } from "lucide-react";
+import { Settings } from "lucide-react";
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -30,7 +30,7 @@ const DataPreferences = () => {
       
       <main className="flex-grow container mx-auto px-6 py-12 max-w-4xl">
         <div className="mb-8 flex items-center">
-          <DataPrefIcon className="mr-3 h-8 w-8" />
+          <Settings className="mr-3 h-8 w-8" />
           <h1 className="text-4xl font-bold">Data Preferences</h1>
         </div>
         
