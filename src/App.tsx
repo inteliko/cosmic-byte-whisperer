@@ -14,6 +14,11 @@ import Scope from "./pages/Scope";
 import BookCall from "./pages/BookCall";
 import Guides from "./pages/Guides";
 import BlogPost from "./pages/BlogPost";
+import TermsConditions from "./pages/TermsConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import CookiePolicy from "./pages/CookiePolicy";
+import DataPreferences from "./pages/DataPreferences";
+import Imprint from "./pages/Imprint";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +38,11 @@ const App = () => (
           <Route path="/book-call" element={<BookCall />} />
           <Route path="/guides" element={<Guides />} />
           <Route path="/guides/:id" element={<BlogPost />} />
+          <Route path="/terms" element={<TermsConditions />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+          <Route path="/cookies" element={<CookiePolicy />} />
+          <Route path="/preferences" element={<DataPreferences />} />
+          <Route path="/imprint" element={<Imprint />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
