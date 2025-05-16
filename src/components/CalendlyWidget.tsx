@@ -6,6 +6,12 @@ interface CalendlyWidgetProps {
   onEventScheduled?: () => void;
 }
 
+// Define a custom type for Calendly's event data
+interface CalendlyEventData {
+  event: string;
+  [key: string]: any;
+}
+
 const CalendlyWidget = ({ url, onEventScheduled }: CalendlyWidgetProps) => {
   useEffect(() => {
     // Load Calendly script
@@ -15,8 +21,8 @@ const CalendlyWidget = ({ url, onEventScheduled }: CalendlyWidgetProps) => {
     document.body.appendChild(script);
 
     // Add event listener for when an event is scheduled
-    const handleEventScheduled = (e: Event) => {
-      if ((e as CustomEvent).data?.event === "calendly.event_scheduled") {
+    const handleEventScheduled = (e: MessageEvent<CalendlyEventData>) => {
+      if (e.data?.event === "calendly.event_scheduled") {
         console.log("Calendly event scheduled!");
         onEventScheduled && onEventScheduled();
       }
