@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
+import CalendlyWidget from "../components/CalendlyWidget";
 
 // Form validation schema
 const formSchema = z.object({
@@ -32,6 +33,8 @@ type FormValues = z.infer<typeof formSchema>;
 
 const BookCall = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [showCalendly, setShowCalendly] = useState(false);
+  const [userData, setUserData] = useState<FormValues | null>(null);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -47,9 +50,29 @@ const BookCall = () => {
 
   const onSubmit = (data: FormValues) => {
     console.log("Form data:", data);
-    // In a real application, you would send this data to your backend
-    toast.success("Your booking information has been received!");
+    toast.success("Your information has been submitted!");
+    setUserData(data);
+    setShowCalendly(true);
+  };
+
+  const handleEventScheduled = () => {
     setIsSubmitted(true);
+  };
+
+  // Create Calendly URL with prefilled user data
+  const getCalendlyUrl = () => {
+    if (!userData) return "https://calendly.com/your-calendly-username/discovery-call";
+    
+    // Add user data as URL parameters for prefilling Calendly form
+    const baseUrl = "https://calendly.com/your-calendly-username/discovery-call";
+    const params = new URLSearchParams({
+      name: `${userData.firstName} ${userData.lastName}`,
+      email: userData.email,
+      a1: userData.company, // Custom answer field 1
+      a2: userData.phone,   // Custom answer field 2
+    });
+    
+    return `${baseUrl}?${params.toString()}`;
   };
 
   return (
@@ -57,7 +80,9 @@ const BookCall = () => {
       <Navbar />
 
       <div className="pt-24 px-6 md:px-0">
-        {!isSubmitted ? (
+        {isSubmitted ? (
+          <ConfirmationView />
+        ) : !showCalendly ? (
           <div className="container mx-auto max-w-6xl flex flex-col md:flex-row gap-8 md:gap-16">
             {/* Left side - Form header and description */}
             <div className="md:w-1/2">
@@ -238,14 +263,26 @@ const BookCall = () => {
                     type="submit" 
                     className="w-full bg-black hover:bg-gray-800 text-white rounded-md"
                   >
-                    Select Meeting Time →
+                    Continue to Schedule Call →
                   </Button>
                 </form>
               </Form>
             </div>
           </div>
         ) : (
-          <ConfirmationView />
+          <div className="container mx-auto max-w-5xl p-8 bg-white rounded-lg">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold">Schedule Your Discovery Call</h2>
+              <p className="text-gray-600 mt-2">Select a time that works for you</p>
+            </div>
+            
+            <div className="border border-gray-200 rounded-lg shadow-sm">
+              <CalendlyWidget 
+                url={getCalendlyUrl()} 
+                onEventScheduled={handleEventScheduled} 
+              />
+            </div>
+          </div>
         )}
       </div>
       <Footer />
@@ -343,14 +380,18 @@ const ConfirmationView = () => {
       </div>
       
       <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <Button className="bg-black hover:bg-gray-800 flex items-center gap-2">
-          <CalendarCheck className="h-4 w-4" />
-          Open Google Calendar
-        </Button>
-        <Button variant="outline" className="border-gray-300 flex items-center gap-2">
-          <CalendarCheck className="h-4 w-4" />
-          Open Outlook Calendar
-        </Button>
+        <a href="https://calendar.google.com/calendar" target="_blank" rel="noopener noreferrer">
+          <Button className="bg-black hover:bg-gray-800 flex items-center gap-2 w-full">
+            <CalendarCheck className="h-4 w-4" />
+            Open Google Calendar
+          </Button>
+        </a>
+        <a href="https://outlook.office.com/calendar" target="_blank" rel="noopener noreferrer">
+          <Button variant="outline" className="border-gray-300 flex items-center gap-2 w-full">
+            <CalendarCheck className="h-4 w-4" />
+            Open Outlook Calendar
+          </Button>
+        </a>
       </div>
     </div>
   );
