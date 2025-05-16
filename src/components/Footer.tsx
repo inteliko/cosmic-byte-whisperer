@@ -1,11 +1,17 @@
 
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
+import NetworkGlobe from "./NetworkGlobe";
 
 const Footer = () => {
   return (
     <footer className="bg-black text-white py-16 px-6 md:px-12 lg:px-24">
       <div className="container mx-auto">
+        {/* Network Globe */}
+        <div className="mb-16 -mt-8 overflow-hidden rounded-lg bg-black">
+          <NetworkGlobe />
+        </div>
+        
         <div className="mb-12">
           <h3 className="text-2xl mb-4">
             <span className="text-green-400">^^ </span>
