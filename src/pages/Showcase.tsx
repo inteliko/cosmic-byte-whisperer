@@ -2,32 +2,42 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { showcaseItems } from "@/data/showcaseData";
 
-const ShowcaseItem = ({ image, title, category }: { image: string; title: string; category: string }) => (
-  <div className="group">
-    <div className="relative overflow-hidden rounded-lg bg-gray-100 mb-4">
-      <img 
-        src={image} 
-        alt={title} 
-        className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105" 
-      />
-      <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300"></div>
+const ShowcaseItem = ({ 
+  id, 
+  image, 
+  title, 
+  category 
+}: { 
+  id: string; 
+  image: string; 
+  title: string; 
+  category: string 
+}) => {
+  const navigate = useNavigate();
+  
+  return (
+    <div 
+      className="group cursor-pointer" 
+      onClick={() => navigate(`/showcase/${id}`)}
+    >
+      <div className="relative overflow-hidden rounded-lg bg-gray-100 mb-4">
+        <img 
+          src={image} 
+          alt={title} 
+          className="h-64 w-full object-cover transition-transform duration-300 group-hover:scale-105" 
+        />
+        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-opacity duration-300"></div>
+      </div>
+      <h3 className="text-lg font-medium">{title}</h3>
+      <p className="text-sm text-gray-500">{category}</p>
     </div>
-    <h3 className="text-lg font-medium">{title}</h3>
-    <p className="text-sm text-gray-500">{category}</p>
-  </div>
-);
+  );
+};
 
 const Showcase = () => {
-  const showcaseItems = [
-    { image: "/placeholder.svg", title: "E-commerce Website Redesign", category: "Shopify, UI/UX" },
-    { image: "/placeholder.svg", title: "Enterprise Dashboard", category: "Web App, React" },
-    { image: "/placeholder.svg", title: "Mobile Banking Experience", category: "Mobile App, Fintech" },
-    { image: "/placeholder.svg", title: "Marketing Landing Page", category: "Website, Conversion" },
-    { image: "/placeholder.svg", title: "Brand Identity System", category: "Branding, Design System" },
-    { image: "/placeholder.svg", title: "Digital Marketing Campaign", category: "Marketing, Digital" },
-  ];
-
   return (
     <div className="flex flex-col min-h-screen">
       <Navbar />
@@ -51,6 +61,7 @@ const Showcase = () => {
               {showcaseItems.map((item, index) => (
                 <ShowcaseItem
                   key={index}
+                  id={item.id}
                   image={item.image}
                   title={item.title}
                   category={item.category}

@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Talents from "./pages/Talents";
 import Showcase from "./pages/Showcase";
+import ShowcaseDetail from "./pages/ShowcaseDetail";
 import Pricing from "./pages/Pricing";
 import Scope from "./pages/Scope";
 import BookCall from "./pages/BookCall";
@@ -24,6 +25,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/talents" element={<Talents />} />
           <Route path="/showcase" element={<Showcase />} />
+          <Route path="/showcase/:id" element={<ShowcaseDetail />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/scope" element={<Scope />} />
           <Route path="/book-call" element={<BookCall />} />
