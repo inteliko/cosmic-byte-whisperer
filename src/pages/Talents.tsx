@@ -3,6 +3,8 @@ import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Check, Clock, Users, Heart, DollarSign, Smile } from "lucide-react";
+import TalentProcess from "@/components/TalentProcess";
+import TalentFaq from "@/components/TalentFaq";
 
 const Talents = () => {
   return (
@@ -49,131 +51,7 @@ const Talents = () => {
         </section>
 
         {/* Talent Development Process */}
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-6">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Our Screening &<br />
-                  Talent Development<br />
-                  Process
-                </h2>
-                <Button className="bg-white text-black border border-black hover:bg-gray-100 mt-4">
-                  Join Talent Community
-                </Button>
-              </div>
-              <div className="space-y-8">
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="flex gap-4 items-start">
-                    <div className="bg-[#f1f0fb] p-3 rounded-lg">
-                      <div className="text-[#9b87f5]">
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Skill Review</h3>
-                      <p className="text-gray-600">
-                        Every applicant completes a questionnaire, rates their skills in various design or coding disciplines, and provides a link to previous projects that our team checks before moving forward.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="flex gap-4 items-start">
-                    <div className="bg-[#f1f0fb] p-3 rounded-lg">
-                      <div className="text-[#9b87f5]">
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Intro Call</h3>
-                      <p className="text-gray-600">
-                        Our recruitment manager schedules a first intro call to get to know the applicant, dive deeper into technical knowledge, and evaluates communication skills and a culture fit.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="flex gap-4 items-start">
-                    <div className="bg-[#f1f0fb] p-3 rounded-lg">
-                      <div className="text-[#9b87f5]">
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Trial Project</h3>
-                      <p className="text-gray-600">
-                        We give the applicant a first test project to complete under time pressure in a similar format as they would experience working with Growmodo customers. This is when we see their actual skill level.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="flex gap-4 items-start">
-                    <div className="bg-[#f1f0fb] p-3 rounded-lg">
-                      <div className="text-blue-500">
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Expert Panel</h3>
-                      <p className="text-gray-600">
-                        Collaboration is a crucial part of our talent community at Growmodo. Therefore, we also believe that other core team members should have a say in the hiring process.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="flex gap-4 items-start">
-                    <div className="bg-[#f1f0fb] p-3 rounded-lg">
-                      <div className="text-[#9b87f5]">
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">5-Day Bootcamp</h3>
-                      <p className="text-gray-600">
-                        Before letting a talent work on customer projects, the new hire goes through interactive onboarding training and completes online courses and 1-to-1 coaching with our quality manager.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-white p-6 rounded-lg shadow-sm">
-                  <div className="flex gap-4 items-start">
-                    <div className="bg-[#f1f0fb] p-3 rounded-lg">
-                      <div className="text-[#9b87f5]">
-                        <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                        </svg>
-                      </div>
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-semibold mb-2">Ongoing Peer-to-Peer Training</h3>
-                      <p className="text-gray-600">
-                        A crucial part of our success is that we don't only try to find the best designers & developers but also raw diamonds and make them bling. PS: Isn't everybody a raw diamond?
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <TalentProcess />
 
         {/* Skills Section */}
         <section className="py-16 bg-black text-white">
@@ -239,73 +117,9 @@ const Talents = () => {
           </div>
         </section>
 
-        {/* Traditional Hiring Section */}
-        <section className="py-16 bg-gray-50">
-          <div className="container mx-auto px-6">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">
-              The Traditional Way of Hiring<br />
-              Creative Freelancers is Broken
-            </h2>
-            <p className="text-center mb-12 max-w-3xl mx-auto">
-              Company needs are often not aligned anymore with what their remote contractors want. The misalignment can lead to a bad experience for both parties. It's time to rethink outsourcing.
-            </p>
-            
-            <div className="space-y-4 max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-5 gap-4">
-                <div className="md:col-span-4 bg-black text-white p-6 rounded-lg">
-                  <div className="flex items-center gap-4 mb-2">
-                    <span className="text-xl font-bold">01</span>
-                    <h3 className="text-xl font-semibold">You Want Flexibility. They Want Security</h3>
-                  </div>
-                  <p>
-                    It is very convenient to hire freelancers only for one project or even on a task-by-task basis. However, building a steady income stream in this way for them and their families is challenging.
-                  </p>
-                </div>
-                <div className="bg-[#ccff00] p-6 rounded-lg flex flex-col items-center justify-center">
-                  <Check className="mb-2" size={24} />
-                  <p className="text-sm font-semibold text-center">Solution</p>
-                  <p className="font-bold text-center">Monthly Payments</p>
-                </div>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="text-xl font-bold">02</span>
-                  <h3 className="text-xl font-semibold">You Want Expertise. They Want to Learn</h3>
-                </div>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="text-xl font-bold">03</span>
-                  <h3 className="text-xl font-semibold">You Want Quick Dialogue. They Want to Focus</h3>
-                </div>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="text-xl font-bold">04</span>
-                  <h3 className="text-xl font-semibold">You Want to Pay Less. They Want Appreciation</h3>
-                </div>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="text-xl font-bold">05</span>
-                  <h3 className="text-xl font-semibold">You Want Finished Projects. They Want More Hours</h3>
-                </div>
-              </div>
-              
-              <div className="bg-white p-6 rounded-lg">
-                <div className="flex items-center gap-4 mb-2">
-                  <span className="text-xl font-bold">06</span>
-                  <h3 className="text-xl font-semibold">You Want Consistency. They Want Variety</h3>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
+        {/* Traditional Hiring Section - Now using the new TalentFaq component */}
+        <TalentFaq />
+        
         {/* Sustainable Outsourcing */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-6">
