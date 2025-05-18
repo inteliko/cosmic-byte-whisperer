@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,6 +7,8 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
+    --dynamic-bg: #ffffff;
+    --dynamic-text: #0f1729;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -97,5 +100,32 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+.dynamic-section {
+  transition: background-color 0.7s ease-in-out, color 0.7s ease-in-out;
+}
+
+@layer components {
+  .section-indicator {
+    @apply fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3;
+  }
+
+  .section-dot {
+    @apply w-3 h-3 rounded-full bg-gray-300 cursor-pointer transition-all duration-300 ease-in-out;
+  }
+
+  .section-dot.active {
+    @apply bg-black w-4 h-4;
+  }
+
+  /* Add dark mode styles */
+  .dark .section-dot {
+    @apply bg-gray-600;
+  }
+  
+  .dark .section-dot.active {
+    @apply bg-white;
   }
 }
